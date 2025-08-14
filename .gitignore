@@ -3,7 +3,7 @@
 /node_modules
 /build
 /tmp
-
+/apps/cms-service/node_modules
 # Logs
 logs
 *.log
