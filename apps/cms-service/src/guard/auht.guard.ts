@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { ContentManager } from '../entities/content-manager.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class NewAuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService,
-    private cmRepo: Repository<ContentManager>
+    @InjectRepository(ContentManager) private cmRepo: Repository<ContentManager>
   ) {}
 
   canActivate(

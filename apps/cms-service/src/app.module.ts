@@ -6,6 +6,8 @@ import { AuthModule } from './auth/auth.module';
 import { ContentManager } from './entities/content-manager.entity';
 import { Program } from './entities/program.entity';
 import { Episode } from './entities/episode.entity';
+import { UploadModule } from './upload/upload.module';
+import { ContentModule } from './content/content.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -25,6 +27,8 @@ import { Episode } from './entities/episode.entity';
     }),
     HealthModule,
     AuthModule,
+    ContentModule,
+    UploadModule,
   ],
 })
 export class AppModule {}
