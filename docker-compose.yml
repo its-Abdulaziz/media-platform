@@ -2,17 +2,30 @@ services:
   postgres:
     image: postgres:15
     container_name: media-postgres
+    restart: unless-stopped
     env_file:
       - .env
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U media -d media"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-media} -d ${POSTGRES_DB:-media}"]
       interval: 5s
       timeout: 3s
       retries: 10
+  pgadmin:
+    container_name: media-pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+    depends_on:
+      - postgres
 
 volumes:
   pgdata:
+  pgadmin:

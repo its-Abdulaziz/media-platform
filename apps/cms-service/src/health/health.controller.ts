@@ -5,7 +5,6 @@ import { DataSource } from 'typeorm';
 export class HealthController {
   constructor(private readonly ds: DataSource) {}
 
-
   @Get()
   async check() {
     try {
