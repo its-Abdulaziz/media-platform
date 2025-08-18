@@ -15,7 +15,7 @@ export class EpisodesService {
       description: dto.description ?? null,
       media_url: dto.mediaUrl ?? null,
       duration_seconds: dto.durationSeconds ?? null,
-      published_at: dto.publishedAt ? new Date(dto.publishedAt) : null,
+      published_at: new Date(),
     });
   }
 
@@ -34,7 +34,7 @@ export class EpisodesService {
   remove(id: string) { return this.repo.delete(id); }
 
   get(id: string) { return this.repo.findById(id); }
-  
+
   listByProgram(programId: string, limit = 20, offset = 0) {
     return this.repo.listByProgram(programId, limit, offset);
   }
