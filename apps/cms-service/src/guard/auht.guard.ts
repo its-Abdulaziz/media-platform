@@ -17,17 +17,19 @@ export class AuthGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     const token = request.headers.authorization;
-    
+    console.log(token);
     if (!token) {
       return false;
     }
+    const split = token.split(' ');
+    const jwt = split[1];
     try {
-      const decoded = this.jwtService.verify(token);
+      const decoded = this.jwtService.verify(jwt);
       const cm = this.cmRepo.findOne({ where: { id: decoded.cm_id } });
       if (!cm) {
         return false;
       }
-      request.user = cm;
+      request.user = {cm_id: decoded.cm_id};
       return true;
     } catch (error) {
       return false; 

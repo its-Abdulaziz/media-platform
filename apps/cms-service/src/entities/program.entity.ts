@@ -3,6 +3,7 @@ import {
     CreateDateColumn,
     Entity,
     Index,
+    JoinColumn,
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
@@ -34,12 +35,11 @@ import {
     @Column({ type: 'text', default: 'draft' })
     status!: ProgramStatus;
   
-    // FK column (nullable SET NULL)
-    @Column({ type: 'uuid', nullable: true })
+    @Column({ type: 'uuid', nullable: true, name: 'content_manager_id'   })
     content_manager_id!: string | null;
   
-    // Relation helper (optional but handy)
     @ManyToOne(() => ContentManager, (cm) => cm.programs, { nullable: true, onDelete: 'SET NULL' })
+    @JoinColumn({ name: 'content_manager_id' })
     content_manager!: ContentManager | null;
   
     @CreateDateColumn({ type: 'timestamptz' })

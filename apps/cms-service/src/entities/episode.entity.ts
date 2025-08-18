@@ -5,7 +5,7 @@ import {
     Index,
     ManyToOne,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
+    UpdateDateColumn, JoinColumn
   } from 'typeorm';
   import { Program } from './program.entity';
   
@@ -22,6 +22,7 @@ import {
     program_id!: string;
   
     @ManyToOne(() => Program, (p) => p.episodes, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'program_id' })
     program!: Program;
   
     @Column({ type: 'text' })

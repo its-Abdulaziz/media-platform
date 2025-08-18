@@ -10,7 +10,7 @@ export class ProgramsController {
 
   @Post()
   create(@Req() req: any, @Body() dto: CreateProgramDto) {
-    const cmId = req.user?.sub ?? null;
+    const cmId = req.user?.cm_id ?? null;
     return this.service.create(cmId, dto);
   }
 

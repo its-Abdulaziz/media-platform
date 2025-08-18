@@ -14,6 +14,7 @@ export class ProgramsRepoTypeOrm implements ProgramsRepo {
       type: data.type ?? 'podcast',
       status: data.status ?? 'draft',
       content_manager_id: data.content_manager_id,
+      published_at: new Date(),
     });
     return this.repo.save(entity);
   }
